@@ -36,13 +36,13 @@ open class AuthenticateAPI {
      */
     open class func authenticateWithRequestBuilder(body: Body) -> RequestBuilder<AuthResponse> {
         let path = "/app/authenticate"
-        let URLString = SVRFClientAPI.basePath + path
+        let URLString = SVRFClientSwiftAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: body)
 
         let url = NSURLComponents(string: URLString)
 
 
-        let requestBuilder: RequestBuilder<AuthResponse>.Type = SVRFClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<AuthResponse>.Type = SVRFClientSwiftAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }

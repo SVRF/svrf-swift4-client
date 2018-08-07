@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name = 'SVRFClient'
+  s.name = 'SVRFClientSwift'
   s.ios.deployment_target = '9.0'
   s.osx.deployment_target = '10.11'
   s.tvos.deployment_target = '9.0'
@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.homepage = 'http://developers.svrf.com'
   s.summary = 'SVRF API client'
   s.documentation_url = 'https://github.com/SVRF/svrf-swift4-client'
-  s.source_files = 'SVRFClient/Classes/**/*.swift'
+  s.source_files = 'SVRFClientSwift/Classes/**/*.swift'
   s.dependency 'Alamofire', '~> 4.5.0'
 end

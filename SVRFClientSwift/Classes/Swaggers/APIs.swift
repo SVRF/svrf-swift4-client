@@ -6,7 +6,7 @@
 
 import Foundation
 
-open class SVRFClientAPI {
+open class SVRFClientSwiftAPI {
     open static var basePath = "https://api.svrf.com/v1"
     open static var credential: URLCredential?
     open static var customHeaders: [String:String] = [:]
@@ -31,7 +31,7 @@ open class RequestBuilder<T> {
         self.isBody = isBody
         self.headers = headers
 
-        addHeaders(SVRFClientAPI.customHeaders)
+        addHeaders(SVRFClientSwiftAPI.customHeaders)
     }
 
     open func addHeaders(_ aHeaders:[String:String]) {
@@ -50,7 +50,7 @@ open class RequestBuilder<T> {
     }
 
     open func addCredential() -> Self {
-        self.credential = SVRFClientAPI.credential
+        self.credential = SVRFClientSwiftAPI.credential
         return self
     }
 }

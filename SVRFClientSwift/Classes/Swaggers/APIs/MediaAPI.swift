@@ -40,13 +40,13 @@ open class MediaAPI {
     open class func getByIdWithRequestBuilder(id: String) -> RequestBuilder<SingleMediaResponse> {
         var path = "/vr/{id}"
         path = path.replacingOccurrences(of: "{id}", with: "\(id)", options: .literal, range: nil)
-        let URLString = SVRFClientAPI.basePath + path
+        let URLString = SVRFClientSwiftAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
 
 
-        let requestBuilder: RequestBuilder<SingleMediaResponse>.Type = SVRFClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<SingleMediaResponse>.Type = SVRFClientSwiftAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
@@ -87,7 +87,7 @@ open class MediaAPI {
      */
     open class func getTrendingWithRequestBuilder(type: String? = nil, stereoscopicType: String? = nil, category: String? = nil, size: Int? = nil, nextPageCursor: String? = nil) -> RequestBuilder<TrendingResponse> {
         let path = "/vr/trending"
-        let URLString = SVRFClientAPI.basePath + path
+        let URLString = SVRFClientSwiftAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
@@ -100,7 +100,7 @@ open class MediaAPI {
         ])
         
 
-        let requestBuilder: RequestBuilder<TrendingResponse>.Type = SVRFClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<TrendingResponse>.Type = SVRFClientSwiftAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
@@ -143,7 +143,7 @@ open class MediaAPI {
      */
     open class func searchWithRequestBuilder(q: String, type: String? = nil, stereoscopicType: String? = nil, category: String? = nil, size: Int? = nil, pageNum: Int? = nil) -> RequestBuilder<SearchMediaResponse> {
         let path = "/vr/search"
-        let URLString = SVRFClientAPI.basePath + path
+        let URLString = SVRFClientSwiftAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
@@ -157,7 +157,7 @@ open class MediaAPI {
         ])
         
 
-        let requestBuilder: RequestBuilder<SearchMediaResponse>.Type = SVRFClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<SearchMediaResponse>.Type = SVRFClientSwiftAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
