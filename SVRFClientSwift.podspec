@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
   s.documentation_url = 'https://github.com/SVRF/svrf-swift4-client'
   s.source_files = 'SVRFClientSwift/Classes/**/*.swift'
   s.dependency 'Alamofire', '~> 4.5.0'
-  s.swift_version = 4
+  s.swift_version = '4'
 end
