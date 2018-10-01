@@ -12,13 +12,16 @@ import Foundation
 
 open class MediaFiles: Codable {
 
+    /** This is the binary glTF format that should be used by clients if the Media is a 3D object. */
+    public var glb: String?
     public var images: MediaImages?
     public var stereo: MediaStereo?
     public var videos: MediaVideos?
 
 
     
-    public init(images: MediaImages?, stereo: MediaStereo?, videos: MediaVideos?) {
+    public init(glb: String?, images: MediaImages?, stereo: MediaStereo?, videos: MediaVideos?) {
+        self.glb = glb
         self.images = images
         self.stereo = stereo
         self.videos = videos
@@ -31,6 +34,7 @@ open class MediaFiles: Codable {
 
         var container = encoder.container(keyedBy: String.self)
 
+        try container.encodeIfPresent(glb, forKey: "glb")
         try container.encodeIfPresent(images, forKey: "images")
         try container.encodeIfPresent(stereo, forKey: "stereo")
         try container.encodeIfPresent(videos, forKey: "videos")
@@ -41,6 +45,7 @@ open class MediaFiles: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: String.self)
 
+        glb = try container.decodeIfPresent(String.self, forKey: "glb")
         images = try container.decodeIfPresent(MediaImages.self, forKey: "images")
         stereo = try container.decodeIfPresent(MediaStereo.self, forKey: "stereo")
         videos = try container.decodeIfPresent(MediaVideos.self, forKey: "videos")

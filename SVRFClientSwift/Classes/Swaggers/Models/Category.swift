@@ -9,6 +9,6 @@ import Foundation
 
 
 public enum Category: String, Codable {
-    case mask = "Face Mask"
+    case filters = "Face Filters"
 
 }
