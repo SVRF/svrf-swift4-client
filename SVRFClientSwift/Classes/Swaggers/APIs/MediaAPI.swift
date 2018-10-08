@@ -108,7 +108,7 @@ open class MediaAPI {
 
         let url = NSURLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "type": type, 
+            "type": type?.map { $0.rawValue }.joined(), 
             "stereoscopicType": stereoscopicType?.rawValue, 
             "category": category?.rawValue, 
             "size": size?.encodeToJSON(), 
@@ -181,7 +181,7 @@ open class MediaAPI {
         let url = NSURLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
             "q": q, 
-            "type": type, 
+            "type": type?.map { $0.rawValue }.joined(),
             "stereoscopicType": stereoscopicType?.rawValue, 
             "category": category?.rawValue, 
             "size": size?.encodeToJSON(), 
