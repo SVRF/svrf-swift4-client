@@ -17,14 +17,14 @@ open class MediaFiles: Codable {
     /** This is the binary glTF format, with additional DRACO compression, that should be used by clients if the Media is a 3D object. Your renderer must support the KHR_draco_mesh_compression extension to use this model. */
     public var glbDraco: String?
     /** A map of file names to urls where those files are hosted. The file names are relative and their name heirarchy should be respected when saving them locally. */
-    public var gltf: Any?
+    public var gltf: [String:String]?
     public var images: MediaImages?
     public var stereo: MediaStereo?
     public var videos: MediaVideos?
 
 
     
-    public init(glb: String?, glbDraco: String?, gltf: Any?, images: MediaImages?, stereo: MediaStereo?, videos: MediaVideos?) {
+    public init(glb: String?, glbDraco: String?, gltf: [String:String]?, images: MediaImages?, stereo: MediaStereo?, videos: MediaVideos?) {
         self.glb = glb
         self.glbDraco = glbDraco
         self.gltf = gltf
@@ -55,7 +55,7 @@ open class MediaFiles: Codable {
 
         glb = try container.decodeIfPresent(String.self, forKey: "glb")
         glbDraco = try container.decodeIfPresent(String.self, forKey: "glb-draco")
-        gltf = try container.decodeIfPresent(Any.self, forKey: "gltf")
+        gltf = try container.decodeIfPresent([String:String].self, forKey: "gltf")
         images = try container.decodeIfPresent(MediaImages.self, forKey: "images")
         stereo = try container.decodeIfPresent(MediaStereo.self, forKey: "stereo")
         videos = try container.decodeIfPresent(MediaVideos.self, forKey: "videos")
