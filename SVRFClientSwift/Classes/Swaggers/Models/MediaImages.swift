@@ -22,6 +22,8 @@ open class MediaImages: Codable {
     public var _1080: String?
     /** 4096px wide image. This image should be used on mobile devices, as larger images may cause some devices to crash. */
     public var _4096: String?
+    /** The image at a reasonably large resolution that can be used for a better desktop experience. */
+    public var _8192: String?
     /** 1080px wide watermarked image. This image should be used for sharing on social media. */
     public var _1080Watermarked: String?
     /** A 16:9 image. This image may be used for thumbnailing. */
@@ -35,12 +37,13 @@ open class MediaImages: Codable {
 
 
     
-    public init(_136: String?, _540: String?, _720: String?, _1080: String?, _4096: String?, _1080Watermarked: String?, _720x405: String?, _720x540: String?, _720x720: String?, max: String?) {
+    public init(_136: String?, _540: String?, _720: String?, _1080: String?, _4096: String?, _8192: String?, _1080Watermarked: String?, _720x405: String?, _720x540: String?, _720x720: String?, max: String?) {
         self._136 = _136
         self._540 = _540
         self._720 = _720
         self._1080 = _1080
         self._4096 = _4096
+        self._8192 = _8192
         self._1080Watermarked = _1080Watermarked
         self._720x405 = _720x405
         self._720x540 = _720x540
@@ -60,6 +63,7 @@ open class MediaImages: Codable {
         try container.encodeIfPresent(_720, forKey: "720")
         try container.encodeIfPresent(_1080, forKey: "1080")
         try container.encodeIfPresent(_4096, forKey: "4096")
+        try container.encodeIfPresent(_8192, forKey: "8192")
         try container.encodeIfPresent(_1080Watermarked, forKey: "1080Watermarked")
         try container.encodeIfPresent(_720x405, forKey: "720x405")
         try container.encodeIfPresent(_720x540, forKey: "720x540")
@@ -77,6 +81,7 @@ open class MediaImages: Codable {
         _720 = try container.decodeIfPresent(String.self, forKey: "720")
         _1080 = try container.decodeIfPresent(String.self, forKey: "1080")
         _4096 = try container.decodeIfPresent(String.self, forKey: "4096")
+        _8192 = try container.decodeIfPresent(String.self, forKey: "8192")
         _1080Watermarked = try container.decodeIfPresent(String.self, forKey: "1080Watermarked")
         _720x405 = try container.decodeIfPresent(String.self, forKey: "720x405")
         _720x540 = try container.decodeIfPresent(String.self, forKey: "720x540")
