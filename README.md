@@ -1,4 +1,4 @@
-# SVRFClientSwift - the Swift client library for the SVRF API
+# SVRFClient - the Swift client library for the SVRF API
 
 For more information, please visit [https://github.com/svrf/svrf-api](https://github.com/svrf/svrf-api)
 
@@ -9,7 +9,7 @@ The SVRF API Documentation is available at <https://developers.svrf.com>.
 ## Installation & Usage
 ### Install from [CocoaPods](https://cocoapods.org/)
 ```ruby
-pod 'SVRFClientSwift', '~> 1.3.0'
+pod 'SVRFClient', '~> 1.3.0'
 ```
 
 ## Recommendation

@@ -18,6 +18,8 @@ open class MediaVideos: Codable {
     public var _1440: String?
     /** 2160px wide video with a 10MBps video rate, 192KBps audio rate. */
     public var _2160: String?
+    /** 4096px wide video with a 20MBps video rate, 256KBps audio rate. */
+    public var _4096: String?
     /** A 6-second, 1440px wide clip, with a 2MBps video rate, no audio. */
     public var clip: String?
     /** URL for an HLS master playlist containing streams in all of the above resolutions which are no wider than the original Media. This should be used for streaming unless the platform does not support HLS. */
@@ -27,10 +29,11 @@ open class MediaVideos: Codable {
 
 
     
-    public init(_848: String?, _1440: String?, _2160: String?, clip: String?, hls: String?, max: String?) {
+    public init(_848: String?, _1440: String?, _2160: String?, _4096: String?, clip: String?, hls: String?, max: String?) {
         self._848 = _848
         self._1440 = _1440
         self._2160 = _2160
+        self._4096 = _4096
         self.clip = clip
         self.hls = hls
         self.max = max
@@ -46,6 +49,7 @@ open class MediaVideos: Codable {
         try container.encodeIfPresent(_848, forKey: "848")
         try container.encodeIfPresent(_1440, forKey: "1440")
         try container.encodeIfPresent(_2160, forKey: "2160")
+        try container.encodeIfPresent(_4096, forKey: "4096")
         try container.encodeIfPresent(clip, forKey: "clip")
         try container.encodeIfPresent(hls, forKey: "hls")
         try container.encodeIfPresent(max, forKey: "max")
@@ -59,6 +63,7 @@ open class MediaVideos: Codable {
         _848 = try container.decodeIfPresent(String.self, forKey: "848")
         _1440 = try container.decodeIfPresent(String.self, forKey: "1440")
         _2160 = try container.decodeIfPresent(String.self, forKey: "2160")
+        _4096 = try container.decodeIfPresent(String.self, forKey: "4096")
         clip = try container.decodeIfPresent(String.self, forKey: "clip")
         hls = try container.decodeIfPresent(String.self, forKey: "hls")
         max = try container.decodeIfPresent(String.self, forKey: "max")
