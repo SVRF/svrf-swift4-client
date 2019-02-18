@@ -9,7 +9,7 @@ The SVRF API Documentation is available at <https://developers.svrf.com>.
 ## Installation & Usage
 ### Install from [CocoaPods](https://cocoapods.org/)
 ```ruby
-pod 'SVRFClient', '~> 1.3.1'
+pod 'SVRFClient', '~> 1.3.2'
 ```
 
 ## Recommendation
