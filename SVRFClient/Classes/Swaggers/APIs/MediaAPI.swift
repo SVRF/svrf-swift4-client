@@ -52,6 +52,22 @@ open class MediaAPI {
     }
 
     /**
+     * enum for parameter stereoscopicType
+     */
+    public enum StereoscopicType_getTrending: String { 
+        case _none = "none"
+        case topBottom = "top-bottom"
+        case leftRight = "left-right"
+    }
+
+    /**
+     * enum for parameter category
+     */
+    public enum Category_getTrending: String { 
+        case filters = "Face Filters"
+    }
+
+    /**
      Trending Endpoint
      
      - parameter type: (query) The type(s) of Media to be returned (comma separated). (optional)
@@ -59,11 +75,11 @@ open class MediaAPI {
      - parameter category: (query) Search only for Media with a particular category. (optional)
      - parameter size: (query) The number of results per page. (optional, default to 10)
      - parameter minimumWidth: (query) The minimum width for video and photo Media, in pixels. (optional)
-     - parameter nextPageCursor: (query) Pass this cursor ID to get the next page of results. (optional)
+     - parameter pageNum: (query) Pagination control to fetch the next page of results, if applicable. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getTrending(type: [MediaType]? = nil, stereoscopicType: String? = nil, category: String? = nil, size: Int? = nil, minimumWidth: Int? = nil, nextPageCursor: String? = nil, completion: @escaping ((_ data: TrendingResponse?,_ error: Error?) -> Void)) {
-        getTrendingWithRequestBuilder(type: type, stereoscopicType: stereoscopicType, category: category, size: size, minimumWidth: minimumWidth, nextPageCursor: nextPageCursor).execute { (response, error) -> Void in
+    open class func getTrending(type: [MediaType]? = nil, stereoscopicType: StereoscopicType_getTrending? = nil, category: Category_getTrending? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil, completion: @escaping ((_ data: TrendingResponse?,_ error: Error?) -> Void)) {
+        getTrendingWithRequestBuilder(type: type, stereoscopicType: stereoscopicType, category: category, size: size, minimumWidth: minimumWidth, pageNum: pageNum).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -83,11 +99,11 @@ open class MediaAPI {
      - parameter category: (query) Search only for Media with a particular category. (optional)
      - parameter size: (query) The number of results per page. (optional, default to 10)
      - parameter minimumWidth: (query) The minimum width for video and photo Media, in pixels. (optional)
-     - parameter nextPageCursor: (query) Pass this cursor ID to get the next page of results. (optional)
+     - parameter pageNum: (query) Pagination control to fetch the next page of results, if applicable. (optional)
 
      - returns: RequestBuilder<TrendingResponse> 
      */
-    open class func getTrendingWithRequestBuilder(type: [MediaType]? = nil, stereoscopicType: String? = nil, category: String? = nil, size: Int? = nil, minimumWidth: Int? = nil, nextPageCursor: String? = nil) -> RequestBuilder<TrendingResponse> {
+    open class func getTrendingWithRequestBuilder(type: [MediaType]? = nil, stereoscopicType: StereoscopicType_getTrending? = nil, category: Category_getTrending? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil) -> RequestBuilder<TrendingResponse> {
         let path = "/vr/trending"
         let URLString = SVRFClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -95,17 +111,33 @@ open class MediaAPI {
         let url = NSURLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
             "type": type?.map { $0.rawValue }.joined(), 
-            "stereoscopicType": stereoscopicType, 
-            "category": category, 
+            "stereoscopicType": stereoscopicType?.rawValue, 
+            "category": category?.rawValue, 
             "size": size?.encodeToJSON(), 
             "minimumWidth": minimumWidth?.encodeToJSON(), 
-            "nextPageCursor": nextPageCursor
+            "pageNum": pageNum?.encodeToJSON()
         ])
         
 
         let requestBuilder: RequestBuilder<TrendingResponse>.Type = SVRFClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     * enum for parameter stereoscopicType
+     */
+    public enum StereoscopicType_search: String { 
+        case _none = "none"
+        case topBottom = "top-bottom"
+        case leftRight = "left-right"
+    }
+
+    /**
+     * enum for parameter category
+     */
+    public enum Category_search: String { 
+        case filters = "Face Filters"
     }
 
     /**
@@ -120,7 +152,7 @@ open class MediaAPI {
      - parameter pageNum: (query) Pagination control to fetch the next page of results, if applicable. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func search(q: String, type: [MediaType]? = nil, stereoscopicType: String? = nil, category: String? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil, completion: @escaping ((_ data: SearchMediaResponse?,_ error: Error?) -> Void)) {
+    open class func search(q: String, type: [MediaType]? = nil, stereoscopicType: StereoscopicType_search? = nil, category: Category_search? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil, completion: @escaping ((_ data: SearchMediaResponse?,_ error: Error?) -> Void)) {
         searchWithRequestBuilder(q: q, type: type, stereoscopicType: stereoscopicType, category: category, size: size, minimumWidth: minimumWidth, pageNum: pageNum).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
@@ -146,7 +178,7 @@ open class MediaAPI {
 
      - returns: RequestBuilder<SearchMediaResponse> 
      */
-    open class func searchWithRequestBuilder(q: String, type: [MediaType]? = nil, stereoscopicType: String? = nil, category: String? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil) -> RequestBuilder<SearchMediaResponse> {
+    open class func searchWithRequestBuilder(q: String, type: [MediaType]? = nil, stereoscopicType: StereoscopicType_search? = nil, category: Category_search? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil) -> RequestBuilder<SearchMediaResponse> {
         let path = "/vr/search"
         let URLString = SVRFClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -155,8 +187,8 @@ open class MediaAPI {
         url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
             "q": q, 
             "type": type?.map { $0.rawValue }.joined(), 
-            "stereoscopicType": stereoscopicType, 
-            "category": category, 
+            "stereoscopicType": stereoscopicType?.rawValue, 
+            "category": category?.rawValue, 
             "size": size?.encodeToJSON(), 
             "minimumWidth": minimumWidth?.encodeToJSON(), 
             "pageNum": pageNum?.encodeToJSON()
