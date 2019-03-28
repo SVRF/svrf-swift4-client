@@ -76,10 +76,13 @@ open class MediaAPI {
      - parameter size: (query) The number of results per page. (optional, default to 10)
      - parameter minimumWidth: (query) The minimum width for video and photo Media, in pixels. (optional)
      - parameter pageNum: (query) Pagination control to fetch the next page of results, if applicable. (optional)
+     - parameter isFaceFilter: (query) Search only for Face Filters. (optional)
+     - parameter hasBlendShapes: (query) Search only for Media that has blend shapes. (optional)
+     - parameter requiresBlendShapes: (query) Search only for Media that requires blend shapes. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getTrending(type: [MediaType]? = nil, stereoscopicType: StereoscopicType_getTrending? = nil, category: Category_getTrending? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil, completion: @escaping ((_ data: TrendingResponse?,_ error: Error?) -> Void)) {
-        getTrendingWithRequestBuilder(type: type, stereoscopicType: stereoscopicType, category: category, size: size, minimumWidth: minimumWidth, pageNum: pageNum).execute { (response, error) -> Void in
+    open class func getTrending(type: [MediaType]? = nil, stereoscopicType: StereoscopicType_getTrending? = nil, category: Category_getTrending? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil, isFaceFilter: Bool? = nil, hasBlendShapes: Bool? = nil, requiresBlendShapes: Bool? = nil, completion: @escaping ((_ data: TrendingResponse?,_ error: Error?) -> Void)) {
+        getTrendingWithRequestBuilder(type: type, stereoscopicType: stereoscopicType, category: category, size: size, minimumWidth: minimumWidth, pageNum: pageNum, isFaceFilter: isFaceFilter, hasBlendShapes: hasBlendShapes, requiresBlendShapes: requiresBlendShapes).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -100,10 +103,13 @@ open class MediaAPI {
      - parameter size: (query) The number of results per page. (optional, default to 10)
      - parameter minimumWidth: (query) The minimum width for video and photo Media, in pixels. (optional)
      - parameter pageNum: (query) Pagination control to fetch the next page of results, if applicable. (optional)
+     - parameter isFaceFilter: (query) Search only for Face Filters. (optional)
+     - parameter hasBlendShapes: (query) Search only for Media that has blend shapes. (optional)
+     - parameter requiresBlendShapes: (query) Search only for Media that requires blend shapes. (optional)
 
      - returns: RequestBuilder<TrendingResponse> 
      */
-    open class func getTrendingWithRequestBuilder(type: [MediaType]? = nil, stereoscopicType: StereoscopicType_getTrending? = nil, category: Category_getTrending? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil) -> RequestBuilder<TrendingResponse> {
+    open class func getTrendingWithRequestBuilder(type: [MediaType]? = nil, stereoscopicType: StereoscopicType_getTrending? = nil, category: Category_getTrending? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil, isFaceFilter: Bool? = nil, hasBlendShapes: Bool? = nil, requiresBlendShapes: Bool? = nil) -> RequestBuilder<TrendingResponse> {
         let path = "/vr/trending"
         let URLString = SVRFClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -115,7 +121,10 @@ open class MediaAPI {
             "category": category?.rawValue, 
             "size": size?.encodeToJSON(), 
             "minimumWidth": minimumWidth?.encodeToJSON(), 
-            "pageNum": pageNum?.encodeToJSON()
+            "pageNum": pageNum?.encodeToJSON(), 
+            "isFaceFilter": isFaceFilter, 
+            "hasBlendShapes": hasBlendShapes, 
+            "requiresBlendShapes": requiresBlendShapes
         ])
         
 
@@ -150,10 +159,13 @@ open class MediaAPI {
      - parameter size: (query) The number of results to return per-page, from 1 to 100. (optional, default to 10)
      - parameter minimumWidth: (query) The minimum width for video and photo Media, in pixels. (optional)
      - parameter pageNum: (query) Pagination control to fetch the next page of results, if applicable. (optional)
+     - parameter isFaceFilter: (query) Search only for Face Filters. (optional)
+     - parameter hasBlendShapes: (query) Search only for Media that has blend shapes. (optional)
+     - parameter requiresBlendShapes: (query) Search only for Media that requires blend shapes. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func search(q: String, type: [MediaType]? = nil, stereoscopicType: StereoscopicType_search? = nil, category: Category_search? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil, completion: @escaping ((_ data: SearchMediaResponse?,_ error: Error?) -> Void)) {
-        searchWithRequestBuilder(q: q, type: type, stereoscopicType: stereoscopicType, category: category, size: size, minimumWidth: minimumWidth, pageNum: pageNum).execute { (response, error) -> Void in
+    open class func search(q: String, type: [MediaType]? = nil, stereoscopicType: StereoscopicType_search? = nil, category: Category_search? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil, isFaceFilter: Bool? = nil, hasBlendShapes: Bool? = nil, requiresBlendShapes: Bool? = nil, completion: @escaping ((_ data: SearchMediaResponse?,_ error: Error?) -> Void)) {
+        searchWithRequestBuilder(q: q, type: type, stereoscopicType: stereoscopicType, category: category, size: size, minimumWidth: minimumWidth, pageNum: pageNum, isFaceFilter: isFaceFilter, hasBlendShapes: hasBlendShapes, requiresBlendShapes: requiresBlendShapes).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
     }
@@ -175,10 +187,13 @@ open class MediaAPI {
      - parameter size: (query) The number of results to return per-page, from 1 to 100. (optional, default to 10)
      - parameter minimumWidth: (query) The minimum width for video and photo Media, in pixels. (optional)
      - parameter pageNum: (query) Pagination control to fetch the next page of results, if applicable. (optional)
+     - parameter isFaceFilter: (query) Search only for Face Filters. (optional)
+     - parameter hasBlendShapes: (query) Search only for Media that has blend shapes. (optional)
+     - parameter requiresBlendShapes: (query) Search only for Media that requires blend shapes. (optional)
 
      - returns: RequestBuilder<SearchMediaResponse> 
      */
-    open class func searchWithRequestBuilder(q: String, type: [MediaType]? = nil, stereoscopicType: StereoscopicType_search? = nil, category: Category_search? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil) -> RequestBuilder<SearchMediaResponse> {
+    open class func searchWithRequestBuilder(q: String, type: [MediaType]? = nil, stereoscopicType: StereoscopicType_search? = nil, category: Category_search? = nil, size: Int? = nil, minimumWidth: Int? = nil, pageNum: Int? = nil, isFaceFilter: Bool? = nil, hasBlendShapes: Bool? = nil, requiresBlendShapes: Bool? = nil) -> RequestBuilder<SearchMediaResponse> {
         let path = "/vr/search"
         let URLString = SVRFClientAPI.basePath + path
         let parameters: [String:Any]? = nil
@@ -191,7 +206,10 @@ open class MediaAPI {
             "category": category?.rawValue, 
             "size": size?.encodeToJSON(), 
             "minimumWidth": minimumWidth?.encodeToJSON(), 
-            "pageNum": pageNum?.encodeToJSON()
+            "pageNum": pageNum?.encodeToJSON(), 
+            "isFaceFilter": isFaceFilter, 
+            "hasBlendShapes": hasBlendShapes, 
+            "requiresBlendShapes": requiresBlendShapes
         ])
         
 

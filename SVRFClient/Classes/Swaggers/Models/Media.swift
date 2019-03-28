@@ -30,6 +30,7 @@ open class Media: Codable {
     public var height: Double?
     /** The unique ID of this Media */
     public var id: String?
+    public var metadata: MediaMetadata?
     /** The site that this Media came from. This should be displayed when possible. */
     public var site: String?
     /** The title of the Media, suitable for displaying */
@@ -42,7 +43,7 @@ open class Media: Codable {
 
 
     
-    public init(adult: Bool?, authors: [String]?, canonical: String?, description: String?, duration: Double?, embedHtml: String?, embedUrl: String?, files: MediaFiles?, height: Double?, id: String?, site: String?, title: String?, type: MediaType?, url: String?, width: Double?) {
+    public init(adult: Bool?, authors: [String]?, canonical: String?, description: String?, duration: Double?, embedHtml: String?, embedUrl: String?, files: MediaFiles?, height: Double?, id: String?, metadata: MediaMetadata?, site: String?, title: String?, type: MediaType?, url: String?, width: Double?) {
         self.adult = adult
         self.authors = authors
         self.canonical = canonical
@@ -53,6 +54,7 @@ open class Media: Codable {
         self.files = files
         self.height = height
         self.id = id
+        self.metadata = metadata
         self.site = site
         self.title = title
         self.type = type
@@ -77,6 +79,7 @@ open class Media: Codable {
         try container.encodeIfPresent(files, forKey: "files")
         try container.encodeIfPresent(height, forKey: "height")
         try container.encodeIfPresent(id, forKey: "id")
+        try container.encodeIfPresent(metadata, forKey: "metadata")
         try container.encodeIfPresent(site, forKey: "site")
         try container.encodeIfPresent(title, forKey: "title")
         try container.encodeIfPresent(type, forKey: "type")
@@ -99,6 +102,7 @@ open class Media: Codable {
         files = try container.decodeIfPresent(MediaFiles.self, forKey: "files")
         height = try container.decodeIfPresent(Double.self, forKey: "height")
         id = try container.decodeIfPresent(String.self, forKey: "id")
+        metadata = try container.decodeIfPresent(MediaMetadata.self, forKey: "metadata")
         site = try container.decodeIfPresent(String.self, forKey: "site")
         title = try container.decodeIfPresent(String.self, forKey: "title")
         type = try container.decodeIfPresent(MediaType.self, forKey: "type")

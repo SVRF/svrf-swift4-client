@@ -11,6 +11,8 @@ import Foundation
 
 open class PaginationResponse: Codable {
 
+    /** If the request was successful */
+    public var success: Bool?
     /** The next page to query to see more results, whether or not the next page actually exists. */
     public var nextPageNum: Int?
     /** The current page number */
@@ -18,7 +20,8 @@ open class PaginationResponse: Codable {
 
 
     
-    public init(nextPageNum: Int?, pageNum: Int?) {
+    public init(success: Bool?, nextPageNum: Int?, pageNum: Int?) {
+        self.success = success
         self.nextPageNum = nextPageNum
         self.pageNum = pageNum
     }
@@ -30,6 +33,7 @@ open class PaginationResponse: Codable {
 
         var container = encoder.container(keyedBy: String.self)
 
+        try container.encodeIfPresent(success, forKey: "success")
         try container.encodeIfPresent(nextPageNum, forKey: "nextPageNum")
         try container.encodeIfPresent(pageNum, forKey: "pageNum")
     }
@@ -39,6 +43,7 @@ open class PaginationResponse: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: String.self)
 
+        success = try container.decodeIfPresent(Bool.self, forKey: "success")
         nextPageNum = try container.decodeIfPresent(Int.self, forKey: "nextPageNum")
         pageNum = try container.decodeIfPresent(Int.self, forKey: "pageNum")
     }
